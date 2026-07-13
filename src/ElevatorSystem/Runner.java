@@ -1,6 +1,6 @@
 package ElevatorSystem;
 
-public class ElevatorRunner {
+public class Runner {
     public static void main(String args[]){
 
     }

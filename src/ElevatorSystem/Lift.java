@@ -1,7 +1,11 @@
 package ElevatorSystem;
 
 public abstract  class Lift {
-    int lift_capacity;
+    int capacity;
+    int direction;
+    int current_floor;
+    Set<Integer> stopsList;
+
 
     public void goUp(int floor){
 
