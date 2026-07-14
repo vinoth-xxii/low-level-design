@@ -1,24 +1,45 @@
 public class Controller {
     List<Lift> listList = new ArrayList<Lift>;
-    Lift desiredLift = listList[0];
+//    Lift desiredLift = listList[0];
+    Lift desiredLift = null;
 
-    public void assignLift(String request_direction, int request_floor){
-        for(List lift : listList){
-            if(request_direction == 'up'){
-                if(lift.direction == request_direction && lift.current_floor >= request_direction){
-                    desiredList = lift;
+    public boolean notCrosses(Lift lift){
+        if(lift.direction.isEqual("up")){
+            return lift.current_floor <= requester_floor;
+        }
+        else{
+            return lift.current_floor >= requester_floor;
+        }
+    }
+
+    public boolen isClose(Lift lift, int requester_floor){
+        int desiredLift_gap = desiredList.current_floor - requester_floor;
+        int lift_gap = lift.current_floor - requester_floor;
+        if(lift_gap < desiredLift_gap){
+            return true;
+        }
+        return false;
+    }
+
+    public void assignLift(String request_direction, int requester_floor){
+
+        for(Lift lift : liftList){
+            if(lift.direction == request_direction && notCrossed(lift)){
+                if(desiredLift != null && isCloser(lift, requester_floor)){
+                    desiredLift = lift;
+                }
+                else{
+                    desiredLift = lift;
                 }
             }
-            else{
-                if(request_direction == 'down'){
-                    if(lift.direction == requestion_direction && lift.current_floor <= request_direction){
-                        desiredLift = lift;
-                    }
-                }
+            //if none of the lift is moving toward it, check for one stationary lift
+            if(lift.direction.isEqual("state") && isCloser(lift, requester_floor)){
+                desiredLift = left;
             }
         }
 
-        desiredLift.addStops(request_floor);
+        desiredLift.addStop(requester_floor);
     }
+
 
 }
