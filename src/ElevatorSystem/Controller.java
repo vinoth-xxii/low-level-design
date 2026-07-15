@@ -13,8 +13,8 @@ public class Controller {
     }
 
     public boolen isClose(Lift lift, int requester_floor){
-        int desiredLift_gap = desiredList.current_floor - requester_floor;
-        int lift_gap = lift.current_floor - requester_floor;
+        int desiredLift_gap = Math.abs(desiredList.current_floor - requester_floor);
+        int lift_gap = Math.abs(lift.current_floor - requester_floor);
         if(lift_gap < desiredLift_gap){
             return true;
         }
@@ -22,20 +22,20 @@ public class Controller {
     }
 
     public void assignLift(String request_direction, int requester_floor){
-
         for(Lift lift : liftList){
             if(lift.direction == request_direction && notCrossed(lift)){
                 if(desiredLift != null && isCloser(lift, requester_floor)){
                     desiredLift = lift;
                 }
-                else{
-                    desiredLift = lift;
-                }
+//                else{
+//                    desiredLift = lift;
+//                }
             }
             //if none of the lift is moving toward it, check for one stationary lift
-            if(lift.direction.isEqual("state") && isCloser(lift, requester_floor)){
+            else if(lift.direction.isEqual("stale") && isCloser(lift, requester_floor)){
                 desiredLift = left;
             }
+            else{}
         }
 
         desiredLift.addStop(requester_floor);
