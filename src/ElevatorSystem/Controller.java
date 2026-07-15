@@ -23,13 +23,12 @@ public class Controller {
 
     public void assignLift(String request_direction, int requester_floor){
         for(Lift lift : liftList){
-            if(lift.direction == request_direction && notCrossed(lift)){
+            if(desiredLift == null) desiredLift = lift;
+
+            else if(lift.direction == request_direction && notCrossed(lift)){
                 if(desiredLift != null && isCloser(lift, requester_floor)){
                     desiredLift = lift;
                 }
-//                else{
-//                    desiredLift = lift;
-//                }
             }
             //if none of the lift is moving toward it, check for one stationary lift
             else if(lift.direction.isEqual("stale") && isCloser(lift, requester_floor)){
